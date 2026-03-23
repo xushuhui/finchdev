@@ -14,8 +14,11 @@
   "packageManager": "bun",
   "dependencies": {
     "@unhead/vue": "^2.1.12",
+    "diff": "^8.0.3",
     "dompurify": "^3.3.3",
+    "js-yaml": "^4.1.1",
     "marked": "^17.0.5",
+    "qrcode": "^1.5.4",
     "tdesign-icons-vue-next": "^0.4.2",
     "tdesign-vue-next": "^1.18.5",
     "vite-ssg": "^28.3.0",

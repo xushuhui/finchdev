@@ -44,28 +44,26 @@
 
 ## 阶段二：上线后运营（第2-3周）
 
-- [ ] 提交 Google Search Console，提交 sitemap
-- [ ] 安装 Umami 统计（Cloudflare Workers 自部署或 Cloud 免费版）
+- [x] 提交 Google Search Console，提交 sitemap
+- [x] 安装 Google Analytics（替代 Umami）
 - [ ] 发 Reddit（r/webdev, r/programming）
 - [ ] 发 Hacker News Show HN
 - [ ] Twitter/X #buildinpublic 开始更新
 
-## 阶段三：扩充工具（第4-8周）
+## 阶段三：扩充工具（第4-8周）✅ 已完成
 
-按搜索量优先级逐步添加：
+按搜索量优先级逐步添加（全部 15 个工具已上线）：
 
-1. Markdown Preview
-2. Hash Generator（MD5, SHA256）
-3. JWT Decoder
-4. Color Picker / Converter
-5. Cron Expression Generator
-6. UUID Generator
-7. QR Code Generator
-8. YAML ↔ JSON Converter
-9. Diff Checker
-10. HTML Entity Encoder
-
-每个工具控制在半天到一天完成。
+1. ~~Markdown Preview~~
+2. ~~Hash Generator（MD5, SHA256）~~
+3. ~~JWT Decoder~~
+4. ~~Color Picker / Converter~~
+5. ~~Cron Expression Generator~~
+6. ~~UUID Generator~~
+7. ~~QR Code Generator~~
+8. ~~YAML ↔ JSON Converter~~
+9. ~~Diff Checker~~
+10. ~~HTML Entity Encoder~~
 
 ## 阶段四：判断（第3个月）
 

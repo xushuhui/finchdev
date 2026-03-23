@@ -92,6 +92,51 @@ export const toolDefinitions = [
     title: 'Markdown Preview - Free Online Tool | FinchDev',
     description: 'Write and preview Markdown with live rendering, syntax highlighting and export support.',
   },
+  {
+    name: 'Cron Expression Generator',
+    path: '/cron-generator',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>',
+    cardDescription: 'Build cron expressions with quick presets and readable summaries.',
+    h1: 'Cron Expression Generator Online',
+    title: 'Cron Expression Generator - Free Online Tool | FinchDev',
+    description: 'Generate cron expressions with presets, field controls, and plain-English summaries using this free online cron generator.',
+  },
+  {
+    name: 'QR Code Generator',
+    path: '/qr-code-generator',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M20 14v7"/><path d="M14 20h3"/></svg>',
+    cardDescription: 'Generate downloadable QR codes from text or URLs instantly.',
+    h1: 'QR Code Generator Online',
+    title: 'QR Code Generator - Free Online Tool | FinchDev',
+    description: 'Create QR codes for URLs, text, and other content with this free online QR code generator.',
+  },
+  {
+    name: 'YAML JSON Converter',
+    path: '/yaml-json-converter',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h8"/><path d="M8 12h8"/><path d="M8 18h5"/><path d="m16 15 3 3-3 3"/></svg>',
+    cardDescription: 'Convert YAML to JSON or JSON to YAML with validation.',
+    h1: 'YAML JSON Converter Online',
+    title: 'YAML JSON Converter - Free Online Tool | FinchDev',
+    description: 'Convert YAML to JSON or JSON to YAML instantly with this free online YAML and JSON converter.',
+  },
+  {
+    name: 'Diff Checker',
+    path: '/diff-checker',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8h4"/><path d="M5 16h4"/><path d="M15 8h4"/><path d="M15 16h4"/></svg>',
+    cardDescription: 'Compare two texts line by line and inspect additions or removals.',
+    h1: 'Diff Checker Online',
+    title: 'Diff Checker - Free Online Tool | FinchDev',
+    description: 'Compare two texts with line-by-line highlighting using this free online diff checker.',
+  },
+  {
+    name: 'HTML Entity Encoder',
+    path: '/html-entity-encoder',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8 4 12l4 4"/><path d="M16 8l4 4-4 4"/><path d="M13 5 11 19"/></svg>',
+    cardDescription: 'Encode or decode HTML entities for safe markup output.',
+    h1: 'HTML Entity Encoder Online',
+    title: 'HTML Entity Encoder - Free Online Tool | FinchDev',
+    description: 'Encode and decode HTML entities instantly with this free online HTML entity encoder.',
+  },
 ]
 
 export const routeMeta = Object.fromEntries(
@@ -107,6 +152,6 @@ export const routeMeta = Object.fromEntries(
 
 routeMeta['/'] = {
   title: 'Free Online Developer Tools | FinchDev',
-  description: 'FinchDev provides free online developer tools including JSON formatter, regex tester, Base64, timestamp, URL encoder, hash generator, UUID generator, color converter, JWT decoder, and markdown preview.',
+  description: 'FinchDev provides free online developer tools including JSON formatter, regex tester, Base64, timestamp, URL encoder, hash generator, UUID generator, color converter, JWT decoder, markdown preview, cron generator, QR code generator, YAML JSON converter, diff checker, and HTML entity encoder.',
   url: SITE_URL,
 }
