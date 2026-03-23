@@ -1,1 +1,2 @@
-https://www.finchdev.com/* https://finchdev.com/:splat 301!
+# SPA Fallback
+/* /index.html 200
