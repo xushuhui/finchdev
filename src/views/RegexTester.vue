@@ -66,25 +66,25 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { SearchIcon, SettingIcon, PlayCircleStrokeIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions, routeMeta } from '../data/tools'
-import { testRegex } from '../utils/regexTools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
+import { testRegex, type RegexMatch } from '../utils/regexTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/regex-tester')
-useSeoHead(routeMeta['/regex-tester'])
+const tool = getToolDefinition('/regex-tester')
+useSeoHead(getRouteMeta('/regex-tester'))
 const text = ref('')
 const pattern = ref('')
 const flags = ref('g')
-const matches = ref([])
+const matches = ref<RegexMatch[]>([])
 const summary = ref('No regex test executed yet.')
 const error = ref('')
 
-function onTest() {
+function onTest(): void {
   const result = testRegex(pattern.value, flags.value, text.value)
   matches.value = result.matches
   summary.value = result.summary

@@ -53,16 +53,16 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions, routeMeta } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 import { formatJson, minifyJson } from '../utils/jsonTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/json-formatter')
-useSeoHead(routeMeta['/json-formatter'])
+const tool = getToolDefinition('/json-formatter')
+useSeoHead(getRouteMeta('/json-formatter'))
 const input = ref('')
 const output = ref('')
 const error = ref('')

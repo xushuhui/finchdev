@@ -46,13 +46,13 @@
   </t-space>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useSeoHead } from '../composables/useSeoHead'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, toolDefinitions } from '../data/tools'
 
 const router = useRouter()
-useSeoHead(routeMeta['/'])
+useSeoHead(getRouteMeta('/'))
 
 function scrollToTools() {
   document.getElementById('tool-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' })

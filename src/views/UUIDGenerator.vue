@@ -54,40 +54,40 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { routeMeta, toolDefinitions } from '../data/tools'
-import { generateUuid, generateUuidBatch } from '../utils/uuidTools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
+import { generateUuid, generateUuidBatch, type UuidOptions } from '../utils/uuidTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/uuid-generator')
-useSeoHead(routeMeta['/uuid-generator'])
+const tool = getToolDefinition('/uuid-generator')
+useSeoHead(getRouteMeta('/uuid-generator'))
 
 const countInput = ref('10')
 const uppercase = ref(false)
 const hyphenated = ref(true)
-const uuids = ref([])
+const uuids = ref<string[]>([])
 
-function options() {
+function options(): UuidOptions {
   return {
     uppercase: uppercase.value,
     hyphenated: hyphenated.value,
   }
 }
 
-function generateOne() {
+function generateOne(): void {
   uuids.value = [generateUuid(options())]
   MessagePlugin.success('UUID generated')
 }
 
-function generateBulk() {
+function generateBulk(): void {
   uuids.value = generateUuidBatch(countInput.value, options())
   MessagePlugin.success(`${uuids.value.length} UUIDs generated`)
 }
 
-async function copyAll() {
+async function copyAll(): Promise<void> {
   await navigator.clipboard.writeText(uuids.value.join('\n'))
   MessagePlugin.success('UUID list copied')
 }

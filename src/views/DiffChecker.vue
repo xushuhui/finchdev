@@ -49,15 +49,15 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
 import { buildDiffSummary, createLineDiff } from '../utils/diffTools'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 
-const tool = toolDefinitions.find((item) => item.path === '/diff-checker')
-useSeoHead(routeMeta['/diff-checker'])
+const tool = getToolDefinition('/diff-checker')
+useSeoHead(getRouteMeta('/diff-checker'))
 
 const leftText = ref('line one\nline two\nline three')
 const rightText = ref('line one\nline two updated\nline three\nline four')

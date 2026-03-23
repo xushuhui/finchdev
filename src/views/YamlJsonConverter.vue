@@ -44,16 +44,16 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
 import { jsonToYaml, yamlToJson } from '../utils/yamlJsonTools'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 
-const tool = toolDefinitions.find((item) => item.path === '/yaml-json-converter')
-useSeoHead(routeMeta['/yaml-json-converter'])
+const tool = getToolDefinition('/yaml-json-converter')
+useSeoHead(getRouteMeta('/yaml-json-converter'))
 
 const input = ref('name: finchdev\ntools:\n  - json\n  - regex')
 const output = ref('')

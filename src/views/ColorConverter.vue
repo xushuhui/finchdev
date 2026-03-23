@@ -51,22 +51,26 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 import { convertColor } from '../utils/colorTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/color-converter')
-useSeoHead(routeMeta['/color-converter'])
+type ColorFormatKey = 'hex' | 'rgb' | 'hsl' | 'cmyk'
+
+type ColorValues = Record<ColorFormatKey, string>
+
+const tool = getToolDefinition('/color-converter')
+useSeoHead(getRouteMeta('/color-converter'))
 
 const input = ref('#0EA5E9')
-const values = ref({ hex: '', rgb: '', hsl: '', cmyk: '' })
+const values = ref<ColorValues>({ hex: '', rgb: '', hsl: '', cmyk: '' })
 const error = ref('')
 
-const formats = [
+const formats: Array<{ key: ColorFormatKey; label: string }> = [
   { key: 'hex', label: 'HEX' },
   { key: 'rgb', label: 'RGB' },
   { key: 'hsl', label: 'HSL' },
@@ -77,7 +81,12 @@ watch(
   input,
   (value) => {
     const result = convertColor(value)
-    values.value = result
+    values.value = {
+      hex: result.hex,
+      rgb: result.rgb,
+      hsl: result.hsl,
+      cmyk: result.cmyk,
+    }
     error.value = result.error
   },
   { immediate: true },
@@ -86,11 +95,11 @@ watch(
 const previewColor = computed(() => values.value.hex || '#E5E7EB')
 const pickerValue = computed(() => values.value.hex || '#0EA5E9')
 
-function onPickColor(event) {
-  input.value = event.target.value
+function onPickColor(event: Event): void {
+  input.value = (event.target as HTMLInputElement).value
 }
 
-async function copyValue(value, message) {
+async function copyValue(value: string, message: string): Promise<void> {
   await navigator.clipboard.writeText(value)
   MessagePlugin.success(message)
 }

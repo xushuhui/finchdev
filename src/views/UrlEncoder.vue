@@ -59,17 +59,17 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { LinkIcon, DeleteIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions, routeMeta } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 import { decodeUrl, encodeUrl } from '../utils/urlTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/url-encoder')
-useSeoHead(routeMeta['/url-encoder'])
+const tool = getToolDefinition('/url-encoder')
+useSeoHead(getRouteMeta('/url-encoder'))
 const input = ref('')
 const output = ref('')
 const error = ref('')

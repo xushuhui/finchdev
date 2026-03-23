@@ -1,0 +1,116 @@
+import type { HomeRouteModule, ToolRouteModule } from '../types/tools'
+
+export const homeRouteModule: HomeRouteModule = {
+  name: 'home',
+  path: '/',
+  file: '../views/Home.vue',
+  importMode: 'sync',
+}
+
+export const toolRouteModules: ToolRouteModule[] = [
+  {
+    name: 'json-formatter',
+    path: '/json-formatter',
+    file: '../views/JsonFormatter.vue',
+    importMode: 'async',
+    loader: () => import('../views/JsonFormatter.vue'),
+  },
+  {
+    name: 'regex-tester',
+    path: '/regex-tester',
+    file: '../views/RegexTester.vue',
+    importMode: 'async',
+    loader: () => import('../views/RegexTester.vue'),
+  },
+  {
+    name: 'base64',
+    path: '/base64',
+    file: '../views/Base64Tool.vue',
+    importMode: 'async',
+    loader: () => import('../views/Base64Tool.vue'),
+  },
+  {
+    name: 'timestamp',
+    path: '/timestamp',
+    file: '../views/TimestampConverter.vue',
+    importMode: 'async',
+    loader: () => import('../views/TimestampConverter.vue'),
+  },
+  {
+    name: 'url-encoder',
+    path: '/url-encoder',
+    file: '../views/UrlEncoder.vue',
+    importMode: 'async',
+    loader: () => import('../views/UrlEncoder.vue'),
+  },
+  {
+    name: 'hash-generator',
+    path: '/hash-generator',
+    file: '../views/HashGenerator.vue',
+    importMode: 'async',
+    loader: () => import('../views/HashGenerator.vue'),
+  },
+  {
+    name: 'uuid-generator',
+    path: '/uuid-generator',
+    file: '../views/UUIDGenerator.vue',
+    importMode: 'async',
+    loader: () => import('../views/UUIDGenerator.vue'),
+  },
+  {
+    name: 'color-converter',
+    path: '/color-converter',
+    file: '../views/ColorConverter.vue',
+    importMode: 'async',
+    loader: () => import('../views/ColorConverter.vue'),
+  },
+  {
+    name: 'jwt-decoder',
+    path: '/jwt-decoder',
+    file: '../views/JWTDecoder.vue',
+    importMode: 'async',
+    loader: () => import('../views/JWTDecoder.vue'),
+  },
+  {
+    name: 'markdown-preview',
+    path: '/markdown-preview',
+    file: '../views/MarkdownPreview.vue',
+    importMode: 'async',
+    loader: () => import('../views/MarkdownPreview.vue'),
+  },
+  {
+    name: 'cron-generator',
+    path: '/cron-generator',
+    file: '../views/CronGenerator.vue',
+    importMode: 'async',
+    loader: () => import('../views/CronGenerator.vue'),
+  },
+  {
+    name: 'qr-code-generator',
+    path: '/qr-code-generator',
+    file: '../views/QrCodeGenerator.vue',
+    importMode: 'async',
+    loader: () => import('../views/QrCodeGenerator.vue'),
+  },
+  {
+    name: 'yaml-json-converter',
+    path: '/yaml-json-converter',
+    file: '../views/YamlJsonConverter.vue',
+    importMode: 'async',
+    loader: () => import('../views/YamlJsonConverter.vue'),
+  },
+  {
+    name: 'diff-checker',
+    path: '/diff-checker',
+    file: '../views/DiffChecker.vue',
+    importMode: 'async',
+    loader: () => import('../views/DiffChecker.vue'),
+  },
+  {
+    name: 'html-entity-encoder',
+    path: '/html-entity-encoder',
+    file: '../views/HtmlEntityEncoder.vue',
+    importMode: 'async',
+    loader: () => import('../views/HtmlEntityEncoder.vue'),
+  },
+]

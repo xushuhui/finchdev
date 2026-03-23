@@ -41,16 +41,16 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
 import { decodeHtmlEntities, encodeHtmlEntities } from '../utils/htmlEntityTools'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 
-const tool = toolDefinitions.find((item) => item.path === '/html-entity-encoder')
-useSeoHead(routeMeta['/html-entity-encoder'])
+const tool = getToolDefinition('/html-entity-encoder')
+useSeoHead(getRouteMeta('/html-entity-encoder'))
 
 const input = ref('<div class="demo">& FinchDev</div>')
 const output = ref('')

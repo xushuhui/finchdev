@@ -54,16 +54,16 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
 import { createQrCode } from '../utils/qrTools'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 
-const tool = toolDefinitions.find((item) => item.path === '/qr-code-generator')
-useSeoHead(routeMeta['/qr-code-generator'])
+const tool = getToolDefinition('/qr-code-generator')
+useSeoHead(getRouteMeta('/qr-code-generator'))
 
 const input = ref('https://www.finchdev.com')
 const width = ref(256)
@@ -88,12 +88,12 @@ watch([input, width, margin], async ([value, widthValue, marginValue]) => {
     }
   } catch (currentError) {
     if (currentId === requestId) {
-      error.value = currentError.message
+      error.value = currentError instanceof Error ? currentError.message : String(currentError)
     }
   }
 }, { immediate: true })
 
-function downloadQr() {
+function downloadQr(): void {
   if (!dataUrl.value) return
   const anchor = document.createElement('a')
   anchor.href = dataUrl.value
@@ -102,7 +102,7 @@ function downloadQr() {
   MessagePlugin.success('QR code download started')
 }
 
-async function copyDataUrl() {
+async function copyDataUrl(): Promise<void> {
   if (!dataUrl.value) return
   await navigator.clipboard.writeText(dataUrl.value)
   MessagePlugin.success('Data URL copied')

@@ -57,25 +57,33 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { routeMeta, toolDefinitions } from '../data/tools'
-import { decodeJwt } from '../utils/jwtTools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
+import { decodeJwt, type JwtDecodeResult } from '../utils/jwtTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/jwt-decoder')
-useSeoHead(routeMeta['/jwt-decoder'])
+const EMPTY_DECODED: JwtDecodeResult = {
+  error: '',
+  header: null,
+  payload: null,
+  signatureHex: '',
+  isExpired: false,
+}
+
+const tool = getToolDefinition('/jwt-decoder')
+useSeoHead(getRouteMeta('/jwt-decoder'))
 
 const token = ref('')
-const decoded = ref({ header: null, payload: null, signatureHex: '', isExpired: false })
+const decoded = ref<JwtDecodeResult>({ ...EMPTY_DECODED })
 const error = ref('')
 
 watch(
   token,
   (value) => {
     if (!value.trim()) {
-      decoded.value = { header: null, payload: null, signatureHex: '', isExpired: false }
+      decoded.value = { ...EMPTY_DECODED }
       error.value = ''
       return
     }
@@ -86,7 +94,7 @@ watch(
   { immediate: true },
 )
 
-function formatJson(value) {
+function formatJson(value: unknown): string {
   return value ? JSON.stringify(value, null, 2) : '-'
 }
 </script>

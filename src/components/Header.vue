@@ -46,21 +46,28 @@
   </t-head-menu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter, useRoute, RouterLink } from 'vue-router'
-import { TerminalRectangleIcon, ModeLightIcon, ModeDarkIcon, MenuFoldIcon } from 'tdesign-icons-vue-next'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { MenuFoldIcon, ModeDarkIcon, ModeLightIcon, TerminalRectangleIcon } from 'tdesign-icons-vue-next'
+
+import type { ToolDefinition } from '../types/tools'
 import { toolDefinitions } from '../data/tools'
 import { useTheme } from '../composables/useTheme'
+
+interface ToolOption {
+  content: string
+  value: ToolDefinition['path']
+}
 
 const router = useRouter()
 const route = useRoute()
 const { isDark, toggleTheme } = useTheme()
 const currentValue = computed(() => route.path)
 const featuredTools = toolDefinitions.slice(0, 3)
-const moreToolOptions = toolDefinitions.slice(3).map((tool) => ({ content: tool.name, value: tool.path }))
+const moreToolOptions: ToolOption[] = toolDefinitions.slice(3).map((tool) => ({ content: tool.name, value: tool.path }))
 
-function handleToolJump(option) {
+function handleToolJump(option: ToolOption | undefined): void {
   if (option?.value) {
     router.push(option.value)
   }

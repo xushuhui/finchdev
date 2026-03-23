@@ -45,23 +45,27 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { routeMeta, toolDefinitions } from '../data/tools'
-import { generateHashes } from '../utils/hashTools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
+import { generateHashes, type HashResult } from '../utils/hashTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/hash-generator')
-useSeoHead(routeMeta['/hash-generator'])
+type HashKey = keyof HashResult
+
+const EMPTY_HASHES: HashResult = { md5: '', sha1: '', sha256: '', sha512: '' }
+
+const tool = getToolDefinition('/hash-generator')
+useSeoHead(getRouteMeta('/hash-generator'))
 
 const input = ref('')
-const hashes = ref({ md5: '', sha1: '', sha256: '', sha512: '' })
+const hashes = ref<HashResult>({ ...EMPTY_HASHES })
 const error = ref('')
 let requestId = 0
 
-const hashItems = [
+const hashItems: Array<{ key: HashKey; label: string }> = [
   { key: 'md5', label: 'MD5' },
   { key: 'sha1', label: 'SHA-1' },
   { key: 'sha256', label: 'SHA-256' },
@@ -73,7 +77,7 @@ watch(
   async (value) => {
     const currentId = ++requestId
     if (!value) {
-      hashes.value = { md5: '', sha1: '', sha256: '', sha512: '' }
+      hashes.value = { ...EMPTY_HASHES }
       error.value = ''
       return
     }
@@ -86,14 +90,14 @@ watch(
       }
     } catch (currentError) {
       if (currentId === requestId) {
-        error.value = currentError.message
+        error.value = currentError instanceof Error ? currentError.message : String(currentError)
       }
     }
   },
   { immediate: true },
 )
 
-async function copyValue(value, message) {
+async function copyValue(value: string, message: string): Promise<void> {
   await navigator.clipboard.writeText(value)
   MessagePlugin.success(message)
 }

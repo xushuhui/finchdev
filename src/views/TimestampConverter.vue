@@ -59,16 +59,16 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { TimeIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions, routeMeta } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 import { dateToTimestamp, timestampToDate } from '../utils/timestampTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/timestamp')
-useSeoHead(routeMeta['/timestamp'])
+const tool = getToolDefinition('/timestamp')
+useSeoHead(getRouteMeta('/timestamp'))
 const timestampInput = ref('')
 const dateInput = ref('')
 const utcOutput = ref('')

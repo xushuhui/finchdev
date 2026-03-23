@@ -45,37 +45,41 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { marked } from 'marked'
 import createDOMPurify from 'dompurify'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
 import { DEFAULT_MARKDOWN, renderMarkdown } from '../utils/markdownTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/markdown-preview')
-useSeoHead(routeMeta['/markdown-preview'])
+interface HtmlSanitizer {
+  sanitize: (value: string) => string
+}
+
+const tool = getToolDefinition('/markdown-preview')
+useSeoHead(getRouteMeta('/markdown-preview'))
 
 const markdown = ref(DEFAULT_MARKDOWN)
-const purifier = typeof window === 'undefined'
-  ? { sanitize: (value) => value }
+const purifier: HtmlSanitizer = typeof window === 'undefined'
+  ? { sanitize: (value: string) => value }
   : createDOMPurify(window)
 
 const renderedHtml = computed(() =>
   renderMarkdown(markdown.value, {
-    parseMarkdown: (value) => marked.parse(value),
-    sanitizeHtml: (value) => purifier.sanitize(value),
+    parseMarkdown: (value: string): string => marked.parse(value) as string,
+    sanitizeHtml: (value: string): string => purifier.sanitize(value),
   }),
 )
 
-async function copyHtml() {
+async function copyHtml(): Promise<void> {
   await navigator.clipboard.writeText(renderedHtml.value)
   MessagePlugin.success('Rendered HTML copied')
 }
 
-function resetSample() {
+function resetSample(): void {
   markdown.value = DEFAULT_MARKDOWN
   MessagePlugin.success('Sample content restored')
 }

@@ -1,5 +1,5 @@
 import { writeFileSync } from 'node:fs'
-import { toolDefinitions } from '../src/data/tools.js'
+import { toolDefinitions } from '../src/data/tools.ts'
 
 const baseUrl = 'https://finchdev.com'
 const urls = ['/', ...toolDefinitions.map((tool) => tool.path)]

@@ -42,17 +42,22 @@
   </ToolLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { useSeoHead } from '../composables/useSeoHead'
 import ToolLayout from '../components/ToolLayout.vue'
-import { buildCronExpression, describeCronExpression } from '../utils/cronTools'
-import { routeMeta, toolDefinitions } from '../data/tools'
+import { getRouteMeta, getToolDefinition } from '../data/tools'
+import { buildCronExpression, describeCronExpression, type CronParts } from '../utils/cronTools'
 
-const tool = toolDefinitions.find((item) => item.path === '/cron-generator')
-useSeoHead(routeMeta['/cron-generator'])
+interface Preset {
+  label: string
+  value: CronParts
+}
 
-const form = reactive({
+const tool = getToolDefinition('/cron-generator')
+useSeoHead(getRouteMeta('/cron-generator'))
+
+const form = reactive<CronParts>({
   minute: '0',
   hour: '9',
   dayOfMonth: '*',
@@ -60,7 +65,7 @@ const form = reactive({
   dayOfWeek: '1-5',
 })
 
-const fields = [
+const fields: Array<{ key: keyof CronParts; label: string; placeholder: string }> = [
   { key: 'minute', label: 'Minute', placeholder: '0' },
   { key: 'hour', label: 'Hour', placeholder: '9' },
   { key: 'dayOfMonth', label: 'Day', placeholder: '*' },
@@ -68,7 +73,7 @@ const fields = [
   { key: 'dayOfWeek', label: 'Weekday', placeholder: '1-5' },
 ]
 
-const presets = [
+const presets: Preset[] = [
   { label: 'Hourly', value: { minute: '0', hour: '*', dayOfMonth: '*', month: '*', dayOfWeek: '*' } },
   { label: 'Daily 09:00', value: { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: '*' } },
   { label: 'Weekdays 09:00', value: { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: '1-5' } },
@@ -78,7 +83,7 @@ const presets = [
 const expression = computed(() => buildCronExpression(form))
 const summary = computed(() => describeCronExpression(expression.value))
 
-function applyPreset(preset) {
+function applyPreset(preset: CronParts): void {
   Object.assign(form, preset)
 }
 </script>
