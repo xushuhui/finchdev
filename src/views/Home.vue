@@ -41,15 +41,12 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ChevronRightIcon } from 'tdesign-icons-vue-next'
-import { useHead } from '@unhead/vue'
+import { useSeoHead } from '../composables/useSeoHead'
 import { routeMeta, toolDefinitions } from '../data/tools'
 
 const router = useRouter()
 
-useHead({
-  title: routeMeta['/'].title,
-  meta: [{ name: 'description', content: routeMeta['/'].description }],
-})
+useSeoHead(routeMeta['/'])
 </script>
 
 <style scoped>

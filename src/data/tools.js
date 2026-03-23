@@ -1,3 +1,6 @@
+export const SITE_URL = 'https://www.finchdev.com'
+export const SITE_NAME = 'FinchDev'
+
 export const toolDefinitions = [
   {
     name: 'JSON Formatter',
@@ -57,6 +60,7 @@ export const routeMeta = Object.fromEntries(
     {
       title: tool.title,
       description: tool.description,
+      url: `${SITE_URL}${tool.path}`,
     },
   ]),
 )
@@ -65,4 +69,5 @@ routeMeta['/'] = {
   title: 'Free Online Developer Tools | FinchDev',
   description:
     'FinchDev provides free online developer tools including JSON formatter, regex tester, Base64, timestamp, and URL encoder.',
+  url: SITE_URL,
 }

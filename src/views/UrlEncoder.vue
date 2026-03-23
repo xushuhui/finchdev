@@ -60,19 +60,16 @@
 </template>
 
 <script setup>
-import { useHead } from '@unhead/vue'
+import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { LinkIcon, DeleteIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions } from '../data/tools'
+import { toolDefinitions, routeMeta } from '../data/tools'
 import { decodeUrl, encodeUrl } from '../utils/urlTools'
 
 const tool = toolDefinitions.find((item) => item.path === '/url-encoder')
-useHead({
-  title: tool.title,
-  meta: [{ name: 'description', content: tool.description }],
-})
+useSeoHead(routeMeta['/url-encoder'])
 const input = ref('')
 const output = ref('')
 const error = ref('')

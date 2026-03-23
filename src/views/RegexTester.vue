@@ -68,19 +68,16 @@
 </template>
 
 <script setup>
-import { useHead } from '@unhead/vue'
+import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { SearchIcon, SettingIcon, PlayCircleStrokeIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions } from '../data/tools'
+import { toolDefinitions, routeMeta } from '../data/tools'
 import { testRegex } from '../utils/regexTools'
 
 const tool = toolDefinitions.find((item) => item.path === '/regex-tester')
-useHead({
-  title: tool.title,
-  meta: [{ name: 'description', content: tool.description }],
-})
+useSeoHead(routeMeta['/regex-tester'])
 const text = ref('')
 const pattern = ref('')
 const flags = ref('g')

@@ -11,9 +11,7 @@
       <slot />
     </t-card>
 
-    <t-alert theme="info">
-      Ad Slot (Reserved for AdSense)
-    </t-alert>
+    <!-- AdSense slot placeholder -->
 
     <t-row :gutter="[32, 32]">
       <t-col :xs="12" :md="6">

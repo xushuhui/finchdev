@@ -80,18 +80,15 @@
 </template>
 
 <script setup>
-import { useHead } from '@unhead/vue'
+import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { TimeIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions } from '../data/tools'
+import { toolDefinitions, routeMeta } from '../data/tools'
 import { dateToTimestamp, timestampToDate } from '../utils/timestampTools'
 
 const tool = toolDefinitions.find((item) => item.path === '/timestamp')
-useHead({
-  title: tool.title,
-  meta: [{ name: 'description', content: tool.description }],
-})
+useSeoHead(routeMeta['/timestamp'])
 const timestampInput = ref('')
 const dateInput = ref('')
 const utcOutput = ref('')

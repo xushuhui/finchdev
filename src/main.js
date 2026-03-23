@@ -1,4 +1,3 @@
-import { createHead } from '@unhead/vue/client'
 import { ViteSSG } from 'vite-ssg'
 import TDesign from 'tdesign-vue-next'
 
@@ -11,7 +10,6 @@ import { initTheme } from './composables/useTheme'
 import { routes } from './router'
 
 export const createApp = ViteSSG(App, { routes }, ({ app, isClient }) => {
-  app.use(createHead())
   app.use(TDesign)
 
   if (isClient) {

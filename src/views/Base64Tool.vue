@@ -60,19 +60,16 @@
 </template>
 
 <script setup>
-import { useHead } from '@unhead/vue'
+import { useSeoHead } from '../composables/useSeoHead'
 import { ref } from 'vue'
 import { MessagePlugin } from 'tdesign-vue-next'
 import { SwapIcon, DeleteIcon } from 'tdesign-icons-vue-next'
 import ToolLayout from '../components/ToolLayout.vue'
-import { toolDefinitions } from '../data/tools'
+import { toolDefinitions, routeMeta } from '../data/tools'
 import { decodeBase64, encodeBase64 } from '../utils/base64Tools'
 
 const tool = toolDefinitions.find((item) => item.path === '/base64')
-useHead({
-  title: tool.title,
-  meta: [{ name: 'description', content: tool.description }],
-})
+useSeoHead(routeMeta['/base64'])
 const input = ref('')
 const output = ref('')
 const error = ref('')
