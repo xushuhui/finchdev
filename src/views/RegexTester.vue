@@ -4,53 +4,52 @@
       Test regular expressions with flags and instantly inspect all matches. All processing happens locally in your browser.
     </template>
 
-    <t-row :gutter="[32, 32]">
-      <t-col :xs="12" :lg="8">
-        <t-space direction="vertical" style="width: 100%;">
-          <label style="font-size: 14px; font-weight: bold;">Test Text</label>
+    <t-row :gutter="[16, 16]">
+      <t-col :xs="12" :lg="7">
+        <t-card title="Test Text" class="panel-card" hover-shadow>
           <t-textarea
             v-model="text"
             placeholder="Enter text to test against your regex..."
             :autosize="{ minRows: 12, maxRows: 20 }"
           />
-        </t-space>
+        </t-card>
       </t-col>
 
-      <t-col :xs="12" :lg="4">
-        <t-space direction="vertical" size="24px" style="width: 100%;">
-          <t-space direction="vertical" style="width: 100%;">
-            <label style="font-size: 14px; font-weight: bold;">Pattern</label>
-            <t-input v-model="pattern" placeholder="e.g. \b\w+@\w+\.\w+\b">
-              <template #prefix-icon><search-icon /></template>
-            </t-input>
-          </t-space>
+      <t-col :xs="12" :lg="5">
+        <t-space direction="vertical" size="16px" style="width: 100%; display: flex;">
+          <t-card title="Pattern Settings" class="panel-card" hover-shadow>
+            <t-space direction="vertical" size="16px" style="width: 100%; display: flex;">
+              <t-input v-model="pattern" placeholder="e.g. \\b\\w+@\\w+\\.\\w+\\b">
+                <template #prefix-icon><search-icon /></template>
+              </t-input>
+              <t-input v-model="flags" placeholder="gim">
+                <template #prefix-icon><setting-icon /></template>
+              </t-input>
+              <t-space wrap size="12px">
+                <t-button theme="primary" @click="onTest">
+                  <template #icon><play-circle-stroke-icon /></template>
+                  Run Regex Test
+                </t-button>
+                <t-tag theme="primary" variant="light-outline">JavaScript RegExp</t-tag>
+              </t-space>
+            </t-space>
+          </t-card>
 
-          <t-space direction="vertical" style="width: 100%;">
-            <label style="font-size: 14px; font-weight: bold;">Flags</label>
-            <t-input v-model="flags" placeholder="gim">
-              <template #prefix-icon><setting-icon /></template>
-            </t-input>
-          </t-space>
+          <t-alert v-if="error" theme="error" variant="light-outline">{{ error }}</t-alert>
 
-          <t-button theme="primary" block @click="onTest">
-            <template #icon><play-circle-stroke-icon /></template>
-            Run Regex Test
-          </t-button>
-
-          <t-alert v-if="error" theme="error">{{ error }}</t-alert>
-
-          <div style="padding: 20px; border-radius: 6px; background-color: var(--td-bg-color-page); border: 1px solid var(--td-border-level-1);">
-            <h3 style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: var(--td-text-color-placeholder); margin-bottom: 12px;">Match Summary</h3>
-            <p style="font-size: 14px; font-weight: bold; margin-bottom: 16px;">{{ summary }}</p>
-            <t-list v-if="matches.length > 0" size="small" style="max-height: 240px; overflow-y: auto;">
-              <t-list-item v-for="(item, index) in matches" :key="index">
-                <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
-                  <span style="font-family: var(--font-mono); font-weight: bold; color: var(--td-brand-color)">{{ item.value }}</span>
-                  <t-tag size="small" variant="light-enclosure">index: {{ item.index }}</t-tag>
-                </div>
-              </t-list-item>
-            </t-list>
-          </div>
+          <t-card title="Match Summary" class="panel-card" hover-shadow>
+            <t-space direction="vertical" size="12px" style="width: 100%; display: flex;">
+              <t-alert theme="info" variant="light-outline">{{ summary }}</t-alert>
+              <t-list v-if="matches.length > 0" size="small" split>
+                <t-list-item v-for="(item, index) in matches" :key="index">
+                  <t-space justify="between" style="width: 100%; display: flex;">
+                    <span class="match-value">{{ item.value }}</span>
+                    <t-tag size="small" variant="light-outline">index: {{ item.index }}</t-tag>
+                  </t-space>
+                </t-list-item>
+              </t-list>
+            </t-space>
+          </t-card>
         </t-space>
       </t-col>
     </t-row>
@@ -91,7 +90,19 @@ function onTest() {
   summary.value = result.summary
   error.value = result.error
   if (!result.error) {
-    MessagePlugin.success('Test completed')
+    MessagePlugin.success('Regex test completed')
   }
 }
 </script>
+
+<style scoped>
+.panel-card {
+  border-radius: var(--td-radius-extraLarge);
+}
+
+.match-value {
+  color: var(--td-brand-color);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+</style>

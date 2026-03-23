@@ -14,7 +14,7 @@ body,
 body {
   font-family: var(--font-sans);
   color: var(--td-text-color-primary);
-  background-color: var(--td-bg-color-page);
+  background: var(--td-bg-color-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,13 +30,15 @@ input {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--td-brand-color-light) 30%, transparent), transparent 240px),
+    var(--td-bg-color-page);
 }
 
-/* Custom spacing for the main content area */
 .main-content {
-  padding: 32px 24px;
+  padding: 32px 24px 56px;
   flex: 1;
-  max-width: 1248px;
+  max-width: 1280px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -44,6 +46,6 @@ input {
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 16px;
+    padding: 20px 16px 40px;
   }
 }
