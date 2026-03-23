@@ -1,58 +1,50 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
-## Build & Test
+## Project Overview
+
+FinchDev is a Vue 3 developer tools website (finchdev.com) built with TDesign Vue Next and SSR/SSG via vite-ssg. It provides free online tools like JSON formatter, regex tester, Base64 encoder, timestamp converter, and URL encoder. All processing is purely client-side.
+
+## Commands
 
 ```bash
-go build -o codez ./cmd/codez    # Build
-go test ./...                     # Run all tests
-go test ./internal/router/...     # Run specific package tests
-go test -run TestParse ./...      # Run specific test
+bun install        # Install dependencies
+bun run dev        # Start dev server at localhost:5173
+bun run build      # Build for production (static site generation)
+bun run preview    # Preview production build
+bun run test       # Run all tests using Node.js built-in test runner
 ```
+
+For a single test file: `node --test src/tests/jsonTools.test.js`
 
 ## Architecture
 
-Codez is a CLI orchestration layer that routes user input to different AI Agent CLIs (Claude Code, OpenAI Codex) and shares conversation context between agents.
+### Tech Stack
+- **Framework:** Vue 3 (Composition API)
+- **UI Library:** TDesign Vue Next (Official)
+- **Icons:** TDesign Icons Vue Next
+- **Build Tool:** Vite + vite-ssg
+- **Meta/SEO:** @unhead/vue
+- **Package Manager:** Bun
+- **Testing:** Node.js built-in test runner
 
-```
-User Input → Router (parse #agent) → Adapter → External CLI (claude/codex)
-                                         ↓
-                              Context (shared history)
-```
+### Tool Structure
+Each tool follows the same pattern:
+- **View component** (`src/views/{ToolName}.vue`) - UI using TDesign components
+- **Utility functions** (`src/utils/{toolName}Tools.js`) - Pure transformation logic
+- **Test file** (`src/tests/{toolName}Tools.test.js`) - Unit tests for utilities
 
-**Key packages:**
-- `internal/app/` - Main CLI loop, coordinates all components
-- `internal/router/` - Parses `#agent` syntax from user input
-- `internal/adapter/` - Wraps external CLIs (codex, claude) with unified interface
-- `internal/context/` - Manages shared conversation history across agents
+### Key Files
+- `src/data/tools.js` - Single source of truth for tool metadata (names, paths, SEO, icons)
+- `src/router/index.js` - Route definitions
+- `src/components/ToolLayout.vue` - Standard layout wrapper for all tools
+- `src/composables/useTheme.js` - Dark/light mode logic (TDesign compatible)
+- `src/style.css` - Global styles and TDesign variable overrides
 
-**Adapter interface** (`internal/adapter/adapter.go`):
-```go
-type Adapter interface {
-    Name() string
-    IsAvailable(ctx context.Context) bool
-    Run(ctx context.Context, input string, stdout, stderr io.Writer) error
-}
-```
+## Development Rules
 
-**Input syntax:**
-- `#codex <msg>` / `#claude <msg>` - Route to specific agent
-- `!<cmd>` - Execute shell command directly (M1.6)
-- `/cmd` - Local commands (M2, not yet implemented)
-
-## Project Rules
-
-**Bug tracking:** All issues and fixes must be recorded in `bug.md` with format:
-```
-## BUG-XXX: description
-### 状态 / 问题描述 / 修复方案 / 修复记录
-```
-
-**Code review:** Cross-agent review (codex writes → claude reviews, or vice versa).
-
-## Key Files
-
-- `PRD.md` - Product requirements, milestones (M1/M2/M3)
-- `bug.md` - Bug records and fixes
-- `README.md` - User-facing documentation
+- **UI Standard:** Use TDesign Vue Next components exclusively. Do not use Tailwind CSS.
+- **Theme:** Support both light and dark modes. Use TDesign CSS variables (`--td-text-color-primary`, etc.) for custom styles.
+- **Logic:** Keep transformation logic in `src/utils/` and ensure it is covered by tests.
+- **Icons:** Use `tdesign-icons-vue-next` for all UI icons.

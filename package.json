@@ -1,0 +1,27 @@
+{
+  "name": "finchdev",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "node --test src/tests/*.test.js",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "bun run generate:sitemap",
+    "build": "vite-ssg build",
+    "preview": "vite preview"
+  },
+  "packageManager": "bun",
+  "dependencies": {
+    "@unhead/vue": "^2.1.12",
+    "tdesign-icons-vue-next": "^0.4.2",
+    "tdesign-vue-next": "^1.18.5",
+    "vite-ssg": "^28.3.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}

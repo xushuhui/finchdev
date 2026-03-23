@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://finchdev.com/sitemap.xml
