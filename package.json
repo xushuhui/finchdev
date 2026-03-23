@@ -9,10 +9,12 @@
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "prebuild": "bun run generate:sitemap",
     "build": "vite-ssg build",
-    "preview": "vite preview"
+    "preview": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy"
   },
   "packageManager": "bun",
   "dependencies": {
+    "@cloudflare/vite-plugin": "^1.30.0",
     "@unhead/vue": "^2.1.12",
     "diff": "^8.0.3",
     "dompurify": "^3.3.3",
@@ -23,7 +25,8 @@
     "tdesign-vue-next": "^1.18.5",
     "vite-ssg": "^28.3.0",
     "vue": "^3.4.0",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "wrangler": "^4.76.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.5",
