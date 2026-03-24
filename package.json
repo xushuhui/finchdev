@@ -10,7 +10,7 @@
     "prebuild": "bun run generate:sitemap",
     "build": "vite-ssg build",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "node scripts/check-frontend-ts-only.mjs && vue-tsc --noEmit"
   },
   "packageManager": "bun",
   "dependencies": {
